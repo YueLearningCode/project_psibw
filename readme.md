@@ -16,7 +16,7 @@ Create a simple web-based LMS using PHP API and MySQL. The application should ha
 - **Composer** (optional) - For PHP dependency management
 - **Git** - For version control
 - **Text Editor/IDE** (VS Code) - For code editing
-- **Browser** (e.g., Chrome, Firefox) - For testing the web interface
+- **Browser** (Chrome) - For testing the web interface
 
 ### Required Files and Structure
 
@@ -25,11 +25,10 @@ Create a simple web-based LMS using PHP API and MySQL. The application should ha
 - `config/` - Database configuration files (e.g., `db.php`)
 - `sql/` - SQL scripts for database schema and initial data
 - `assets/` - Images, CSS, JS libraries (e.g., Tailwind CSS)
--
 
 ## Requirements
 
-- **Frontend**: HTML CSS (Tailwind CSS) JavaScript
+- **Frontend**: HTML + CSS (Tailwind CSS) + JavaScript
 - **Backend**: PHP + MySQL + JSON (REST API)
 - Use pop-ups and notifications for actions like adding, deleting data, login, etc.
 
