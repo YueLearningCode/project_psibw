@@ -1,18 +1,41 @@
 # Project PSIBW
 
-This repository contains the project for PSIBW (Simple Web-Based LMS).
+This repository contains the project for PSIBW (Pengembangan Sistem Informasi Berbasis WEB - Web-Based Information System Development). Specifically, a simple web-based LMS (Learning Management System).
 
 ## Project Overview
 
 Create a simple web-based LMS using PHP API and MySQL. The application should have a sidebar navigation and support different user roles.
 
+## Prerequisites
+
+### Tools
+
+- **PHP** (version 8.0 or higher) - For backend scripting
+- **MySQL** - For database management
+- **Web Server** (Laragon) - To serve the application
+- **Composer** (optional) - For PHP dependency management
+- **Git** - For version control
+- **Text Editor/IDE** (VS Code) - For code editing
+- **Browser** (e.g., Chrome, Firefox) - For testing the web interface
+
+### Required Files and Structure
+
+- `api/` - Directory for PHP API endpoints (e.g., `login.php`, `students.php`)
+- `public/` - Directory for frontend files (HTML, CSS, JS)
+- `config/` - Database configuration files (e.g., `db.php`)
+- `sql/` - SQL scripts for database schema and initial data
+- `assets/` - Images, CSS, JS libraries (e.g., Tailwind CSS)
+-
+
 ## Requirements
 
-- **Frontend**: HTML
-- **Backend**: PHP + MySQL
+- **Frontend**: HTML CSS (Tailwind CSS) JavaScript
+- **Backend**: PHP + MySQL + JSON (REST API)
 - Use pop-ups and notifications for actions like adding, deleting data, login, etc.
 
-## Database Tables
+## Database Name = project_psibw
+
+## Database Tables 
 
 1. **users** - Handles login roles: USER, DOSEN (Lecturer), MAHASISWA (Student)
    - If logged in as DOSEN, displays MAHASISWA; if as MAHASISWA, displays relevant data.

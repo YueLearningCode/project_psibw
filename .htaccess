@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Set the base directory
+    RewriteBase /project_psibw/
+    
+    # Don't rewrite if it's a real file or directory
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Rewrite all requests to index.php with the original request as a query parameter
+    RewriteRule ^(.*)$ index.php?path=$1 [QSA,L]
+</IfModule>
