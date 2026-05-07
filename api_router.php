@@ -31,18 +31,24 @@ $router->route('api/logout', 'POST', function() {
 //     require_once 'api/profile.php';
 // });
 
+// Unified dashboard for all roles
+$router->route('dashboard/', 'GET', function() {
+    require_once 'public/dashboard.php';
+});
+
+// Keeping legacy role-specific routes for backward compatibility
 // Admin routes
-$router->route('admin/', 'GET', function() {
+$router->route('admin/', 'POST', function() {
     require_once 'public/admin/dashboard.php';
 });
 
 // Dosen routes
-$router->route('dosen/', 'GET', function() {
+$router->route('dosen/', 'POST', function() {
     require_once 'public/dosen/dashboard.php';
 });
 
 // Mahasiswa routes
-$router->route('mahasiswa/', 'GET', function() {
+$router->route('mahasiswa/', 'POST', function() {
     require_once 'public/mahasiswa/dashboard.php';
 });
 

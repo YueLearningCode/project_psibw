@@ -49,17 +49,8 @@ loginForm.addEventListener("submit", async function(e){
             localStorage.setItem("user", JSON.stringify(result.user));
 
             setTimeout(() => {
-
-                if(result.user.role === "admin"){
-                    window.location.href = "admin/dashboard.php";
-                }
-                else if(result.user.role === "dosen"){
-                    window.location.href = "dosen/dashboard.php";
-                }
-                else if(result.user.role === "mahasiswa"){
-                    window.location.href = "mahasiswa/dashboard.php";
-                }
-
+                // Redirect to unified dashboard for all roles
+                window.location.href = "public/dashboard.php";
             }, 1500);
 
         } else {
