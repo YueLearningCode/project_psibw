@@ -1,4 +1,10 @@
 <?php
+// Session configuration
+ini_set('session.save_path', sys_get_temp_dir());
+ini_set('session.gc_probability', 1);
+ini_set('session.gc_divisor', 100);
+ini_set('session.gc_maxlifetime', 1440); // 24 minutes
+
 function loadEnv($path)
 {
     if (!is_readable($path)) {

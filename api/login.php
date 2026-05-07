@@ -4,6 +4,9 @@ header("Content-Type: application/json");
 
 require_once "../config/config.php";
 
+// Start session
+
+
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (
@@ -56,10 +59,24 @@ if (!in_array($user['role'], $allowedRoles)) {
     exit;
 }
 
+// Set session on successful login
+$_SESSION['users'] = [
+    "ni" => $user['ni'],
+    "username" => $user['username'],
+    "role" => $user['role']
+];
+
+// Also set cookie as backup (expires in 24 hours)
+setcookie('users', json_encode([
+    "ni" => $user['ni'],
+    "username" => $user['username'],
+    "role" => $user['role']
+]), time() + (24 * 60 * 60), '/');
+
 echo json_encode([
     "success" => true,
     "message" => "Login berhasil",
-    "user" => [
+    "users" => [
         "ni" => $user['ni'],
         "username" => $user['username'],
         "role" => $user['role']

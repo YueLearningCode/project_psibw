@@ -1,35 +1,43 @@
 <?php
-/**
- * Unified Dashboard
- * Single file for all roles with conditional rendering
- */
 
 require_once '../config/config.php';
 
-// Check if user is logged in
-if (!isset($_COOKIE['user']) && !isset($_SESSION['user'])) {
-    header('Location: /');
-    exit;
+// Start session to make sure it's available
+session_start();
+
+// Check if user is logged in (session first, then cookie as backup)
+$users = null;
+
+if (isset($_SESSION['users'])) {
+    $users = $_SESSION['users'];
+} elseif (isset($_COOKIE['users'])) {
+    $users = json_decode($_COOKIE['users'], true);
+    // Restore to session for consistency
+    $_SESSION['users'] = $users;
 }
 
-// Get user data from localStorage (sent via JavaScript) or session
-$user = null;
-
-if (isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-} else {
-    // You may need to parse user from a header or query parameter if using localStorage
-    // For now, we'll redirect if no session
-    header('Location: /');
+if (!$users) {
+    header('Location: ../index.php');
     exit;
 }
+$role = $users['role'] ?? null;
 
-$role = $user['role'] ?? null;
+// Normalize role (trim and lowercase)
+$role = $role ? trim(strtolower($role)) : null;
+
+// Debug: uncomment to see what's happening
+// echo "Role: " . $role . "<br>";
+// echo "Session users: " . print_r($_SESSION['users'], true) . "<br>";
+// exit;
 
 // Validate role
 $allowedRoles = ['admin', 'dosen', 'mahasiswa'];
-if (!in_array($role, $allowedRoles)) {
-    header('Location: /');
+if (!$role || !in_array($role, $allowedRoles)) {
+    // Debug: show what role we got
+    echo "Invalid role: '" . htmlspecialchars($role) . "'<br>";
+    echo "Allowed roles: " . implode(', ', $allowedRoles) . "<br>";
+    echo "Session data: " . print_r($_SESSION['users'], true) . "<br>";
+    echo "Cookie data: " . (isset($_COOKIE['users']) ? $_COOKIE['users'] : 'none') . "<br>";
     exit;
 }
 
@@ -49,7 +57,7 @@ if (!in_array($role, $allowedRoles)) {
             <div class="navbar-brand">PSIBW Dashboard</div>
             <div class="navbar-user">
                 <span class="user-role"><?php echo strtoupper($role); ?></span>
-                <span class="username"><?php echo htmlspecialchars($user['username']); ?></span>
+                <span class="username"><?php echo htmlspecialchars($users['username']); ?></span>
                 <button onclick="logout()" class="btn-logout">Logout</button>
             </div>
         </nav>
@@ -123,7 +131,7 @@ if (!in_array($role, $allowedRoles)) {
                     <!-- Dosen Dashboard Content -->
                     <div class="page-header">
                         <h1>Dosen Dashboard</h1>
-                        <p>Welcome, <?php echo htmlspecialchars($user['username']); ?>. Manage your courses here.</p>
+                        <p>Welcome, <?php echo htmlspecialchars($users['username']); ?>. Manage your courses here.</p>
                     </div>
 
                     <div class="dashboard-grid">
@@ -155,7 +163,7 @@ if (!in_array($role, $allowedRoles)) {
                     <!-- Mahasiswa Dashboard Content -->
                     <div class="page-header">
                         <h1>Mahasiswa Dashboard</h1>
-                        <p>Welcome, <?php echo htmlspecialchars($user['username']); ?>. Check your courses and grades.</p>
+                        <p>Welcome, <?php echo htmlspecialchars($users['username']); ?>. Check your courses and grades.</p>
                     </div>
 
                     <div class="dashboard-grid">
@@ -189,9 +197,9 @@ if (!in_array($role, $allowedRoles)) {
 
     <script>
         // Get user data from localStorage
-        const user = JSON.parse(localStorage.getItem('user'));
+        const users = JSON.parse(localStorage.getItem('users'));
         
-        if (!user) {
+        if (!users || !users.role) {
             window.location.href = '/';
         }
 
@@ -199,7 +207,7 @@ if (!in_array($role, $allowedRoles)) {
             fetch('api/logout.php', {
                 method: 'POST'
             }).then(() => {
-                localStorage.removeItem('user');
+                localStorage.removeItem('users');
                 window.location.href = '/';
             });
         }

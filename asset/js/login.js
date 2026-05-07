@@ -46,10 +46,9 @@ loginForm.addEventListener("submit", async function(e){
                 showConfirmButton: false
             });
 
-            localStorage.setItem("user", JSON.stringify(result.user));
+            localStorage.setItem("users", JSON.stringify(result.users));
 
             setTimeout(() => {
-                // Redirect to unified dashboard for all roles
                 window.location.href = "public/dashboard.php";
             }, 1500);
 
