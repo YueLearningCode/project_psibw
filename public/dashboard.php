@@ -2,17 +2,14 @@
 
 require_once '../config/config.php';
 
-// Start session to make sure it's available
 session_start();
 
-// Check if user is logged in (session first, then cookie as backup)
 $users = null;
 
 if (isset($_SESSION['users'])) {
     $users = $_SESSION['users'];
 } elseif (isset($_COOKIE['users'])) {
     $users = json_decode($_COOKIE['users'], true);
-    // Restore to session for consistency
     $_SESSION['users'] = $users;
 }
 
@@ -22,7 +19,6 @@ if (!$users) {
 }
 $role = $users['role'] ?? null;
 
-// Normalize role (trim and lowercase)
 $role = $role ? trim(strtolower($role)) : null;
 
 // Debug: uncomment to see what's happening
@@ -30,10 +26,8 @@ $role = $role ? trim(strtolower($role)) : null;
 // echo "Session users: " . print_r($_SESSION['users'], true) . "<br>";
 // exit;
 
-// Validate role
 $allowedRoles = ['admin', 'dosen', 'mahasiswa'];
 if (!$role || !in_array($role, $allowedRoles)) {
-    // Debug: show what role we got
     echo "Invalid role: '" . htmlspecialchars($role) . "'<br>";
     echo "Allowed roles: " . implode(', ', $allowedRoles) . "<br>";
     echo "Session data: " . print_r($_SESSION['users'], true) . "<br>";
