@@ -7,7 +7,8 @@
     # Don't rewrite if it's a real file or directory
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    
+      # Jangan rewrite folder design
+    RewriteCond %{REQUEST_URI} !^/project_psibw/design/
     # Rewrite all requests to index.php with the original request as a query parameter
     RewriteRule ^(.*)$ index.php?path=$1 [QSA,L]
 </IfModule>
