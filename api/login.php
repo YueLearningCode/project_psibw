@@ -50,7 +50,10 @@ if (!password_verify($password, $user['password'])) {
 
 $allowedRoles = ['admin', 'dosen', 'mahasiswa'];
 
-if (!in_array($user['role'], $allowedRoles)) {
+// Normalize role to lowercase for consistency
+$userRole = strtolower($user['role']);
+
+if (!in_array($userRole, $allowedRoles)) {
 
     echo json_encode([
         "success" => false,
@@ -60,17 +63,18 @@ if (!in_array($user['role'], $allowedRoles)) {
 }
 
 // Set session on successful login
+session_start();
 $_SESSION['users'] = [
     "ni" => $user['ni'],
     "username" => $user['username'],
-    "role" => $user['role']
+    "role" => $userRole
 ];
 
 // Also set cookie as backup (expires in 24 hours)
 setcookie('users', json_encode([
     "ni" => $user['ni'],
     "username" => $user['username'],
-    "role" => $user['role']
+    "role" => $userRole
 ]), time() + (24 * 60 * 60), '/');
 
 echo json_encode([
@@ -79,6 +83,6 @@ echo json_encode([
     "users" => [
         "ni" => $user['ni'],
         "username" => $user['username'],
-        "role" => $user['role']
+        "role" => $userRole
     ]
 ]);

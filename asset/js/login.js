@@ -46,10 +46,21 @@ loginForm.addEventListener("submit", async function(e){
                 showConfirmButton: false
             });
 
+            // Store user data
             localStorage.setItem("users", JSON.stringify(result.users));
 
+            // Redirect to appropriate dashboard based on role
+            const role = result.users.role.toLowerCase();
+            let dashboardUrl = 'dashboard/views/mahasiswa/';
+            
+            if (role === 'admin') {
+                dashboardUrl = 'dashboard/views/admin/';
+            } else if (role === 'dosen') {
+                dashboardUrl = 'dashboard/views/dosen/';
+            }
+
             setTimeout(() => {
-                window.location.href = "public/dashboard.php";
+                window.location.href = dashboardUrl;
             }, 1500);
 
         } else {

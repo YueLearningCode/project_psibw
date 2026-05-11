@@ -31,9 +31,21 @@ $router->route('api/logout', 'POST', function() {
 //     require_once 'api/profile.php';
 // });
 
-// Unified dashboard for all roles
-$router->route('dashboard/', 'GET', function() {
-    require_once 'public/dashboard.php';
+// ════════════════ DASHBOARD ROUTES ════════════════
+
+// Admin Dashboard
+$router->route('dashboard/admin/', 'GET', function() {
+    require_once 'dashboard/views/admin/index.php';
+});
+
+// Dosen Dashboard
+$router->route('dashboard/dosen/', 'GET', function() {
+    require_once 'dashboard/views/dosen/index.php';
+});
+
+// Mahasiswa Dashboard
+$router->route('dashboard/mahasiswa/', 'GET', function() {
+    require_once 'dashboard/views/mahasiswa/index.php';
 });
 
 // Dispatch the request
