@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login LMS</title>
+    <title>Login SIAKAD</title>
 
     <!-- TailwindCSS -->
     <link rel="stylesheet" href="dist/assets/main-CdPv3Vwp.css">
@@ -33,7 +33,7 @@ session_start();
         <div class="bg-white shadow-xl rounded-3xl p-8 border border-slate-200">
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-slate-800">
-                    LMS By Yue
+                    SIAKAD
                 </h1>
                 <p class="text-slate-500 mt-2 text-sm">
                     Masuk untuk melanjutkan
@@ -80,7 +80,7 @@ session_start();
 
         <!-- Footer -->
         <p class="text-center text-sm text-slate-500 mt-6">
-            © 2026 LMS By Yue. All rights reserved.
+            © 2026 SIAKAD By Yue. All rights reserved.
         </p>
 
     </div>
